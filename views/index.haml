@@ -1,11 +1,16 @@
 !!!
 %html
   %head
-    %title index
+    %title #{@title}
   %body
     #header
-    %h1 Fly me to the moon.
+    %h1 Bookmark
     #content
     %p
-      I use Haml
-      %span.version= Haml::VERSION
+      - @entries.each do |entry|
+        %li
+          %a{ href: entry.url } #{entry.url}
+          (#{timefmt(entry.created_at)})
+      %form{ action: "/add", method: "post"}
+        %input{ type: "textfield", name: "url" }
+        %input{ type: "submit", value: "send" } 
